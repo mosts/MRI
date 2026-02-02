@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>resources\mri.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="1401978119 %281%29.png" />
+    <None Remove="MULTIPLE ROBLOX INSTANCES %28420 x 72 px%29 %284%29.png" />
+    <None Remove="resources\949195791.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="resources\mri.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="System.Management" Version="9.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="1401978119 (1).png" />
+    <Resource Include="MULTIPLE ROBLOX INSTANCES (420 x 72 px) (4).png" />
+    <Resource Include="resources\1401978119 %281%29.png" />
+    <Resource Include="resources\949195791.png" />
+  </ItemGroup>
+
+</Project>

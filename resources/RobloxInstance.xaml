@@ -1,0 +1,72 @@
+﻿<UserControl x:Name="Username" x:Class="MRI.resources.RobloxInstance"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MRI.resources"
+             mc:Ignorable="d" Width="337" Height="96">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="NoHighlightBut" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#282828"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#282828"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <Grid x:Name="UsernameGrid">
+        <Image x:Name="PFP" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="50" Margin="12,14,0,0" Source="/resources/noFilter.png" Panel.ZIndex="1">
+            <Image.Effect>
+                <DropShadowEffect/>
+            </Image.Effect>
+        </Image>
+        <Label x:Name="DisplayName" Content="Display Name" HorizontalAlignment="Left" Margin="79,2,0,0" VerticalAlignment="Top" Width="207" Foreground="#FFE8E8E8" FontFamily="Calibri" FontSize="22" Height="33"/>
+        <Label x:Name="FullUsername" Content="Full Username" HorizontalAlignment="Left" Margin="79,25,0,0" VerticalAlignment="Top" Width="207" Foreground="#FF8F8F8F" FontFamily="Calibri Light" FontSize="16" Height="32"/>
+        <Label x:Name="GameName" Content="Game Title" HorizontalAlignment="Left" Margin="79,44,0,0" VerticalAlignment="Top" Width="279" Foreground="#FF595959" FontFamily="Calibri Light" Height="26"/>
+        <Button x:Name="KillInstance" Content="Kill Instance" Margin="84,66,182,6" Background="#4C000000" Foreground="#FFFAFAFA" Template ="{DynamicResource NoHighlightBut}" BorderBrush="#19A5A5A5" RenderTransformOrigin="0.5,0.5" FontSize="11" Opacity="0.75" Click="KillInstance_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.75" To="1" BeginTime="0:0:0" Duration="0:0:0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.75" BeginTime="0:0:0" Duration="0:0:0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1" ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-179.832"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Image x:Name="glow" HorizontalAlignment="Left" Margin="0,-3,0,5" Width="74" Source="/resources/949195791.png" Opacity="0.5"/>
+
+    </Grid>
+</UserControl>
