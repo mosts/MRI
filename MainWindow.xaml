@@ -269,6 +269,19 @@
             <Button x:Name="LaunchALLButton" Content="Launch All" HorizontalAlignment="Left" Margin="343,250,0,0" VerticalAlignment="Top"  Template ="{DynamicResource NoHighlightBut}" Background="#4C000000" BorderBrush="#19A5A5A5" Foreground="#FF737373" FontFamily="Calibri Light" Height="26" Width="85" Click="LaunchALLButton_Click"/>
             <Button x:Name="SelectCookies" Content="Select Cookies" HorizontalAlignment="Left" Margin="433,250,0,0" VerticalAlignment="Top"  Template ="{DynamicResource NoHighlightBut}" Background="#4C000000" BorderBrush="#19A5A5A5" Foreground="#FF737373" FontFamily="Calibri Light" Height="26" Width="81" Click="SelectCookies_Click"/>
             <CheckBox x:Name="AntiAFKCheckBox" Content="AntiAFK" HorizontalAlignment="Left" Margin="344,281,0,0" VerticalAlignment="Top" Foreground="#FF737373" Background="#4C000000" BorderBrush="#19A5A5A5" Checked="AntiAFKCheckBox_Checked"/>
+            <TextBox x:Name="ChatMessageInput" HorizontalAlignment="Left" Margin="343,180,0,0" TextWrapping="Wrap" Text="Type message here..." VerticalAlignment="Top" Width="170" Background="#4C000000" BorderBrush="#19A5A5A5" Foreground="#FF737373"/>
+            <Button x:Name="SendChatButton" Content="Send to All" HorizontalAlignment="Left" Margin="343,205,0,0" VerticalAlignment="Top"  Template ="{DynamicResource NoHighlightBut}" Background="#4C000000" BorderBrush="#19A5A5A5" Foreground="#FF737373" FontFamily="Calibri Light" Height="26" Width="85" Click="SendChatButton_Click"/>
+            <Label x:Name="ChatLabel" Content="Auto Chat:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" RenderTransformOrigin="0.5,0.5" Width="62" FontFamily="Calibri Light" Foreground="White" Margin="338,158,0,0" FontSize="11" Background="{x:Null}" FontWeight="Bold">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <CheckBox x:Name="AutoRepeatCheckBox" Content="Auto Repeat (10s)" HorizontalAlignment="Left" Margin="433,208,0,0" VerticalAlignment="Top" Foreground="#FF737373" Background="#4C000000" BorderBrush="#19A5A5A5" Checked="AutoRepeatCheckBox_Checked" Unchecked="AutoRepeatCheckBox_Unchecked"/>
 
         </Grid>
     </Grid>
