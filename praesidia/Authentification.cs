@@ -38,7 +38,7 @@ namespace MRI.praesidia
             var auth_ticket_pre = new HttpRequestMessage(HttpMethod.Post, "https://auth.roblox.com/v1/authentication-ticket");
             var auth_ticket_pre_response = await client.SendAsync(auth_ticket_pre);
 
-            string csrf_token = null;
+            string? csrf_token = null;
             if (auth_ticket_pre_response.Headers.TryGetValues("x-csrf-token", out var values))
             {
                 csrf_token = string.Join(", ", values);
@@ -58,7 +58,7 @@ namespace MRI.praesidia
 
             var auth_ticket_response = await client.SendAsync(auth_ticket_request);
 
-            string auth_ticket = null;
+            string? auth_ticket = null;
             if (auth_ticket_response.Headers.TryGetValues("rbx-authentication-ticket", out var value))
             {
                 auth_ticket = string.Join(", ", value);
@@ -78,7 +78,7 @@ namespace MRI.praesidia
             Guid random_uuid = Guid.NewGuid();
             string uuid = random_uuid.ToString();
 
-            string url = null;
+            string? url = null;
             if (friend_id == "" || friend_id == "...") {
                 url = $"https://www.roblox.com/Game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId=0&placeId={place_id}&isPlayTogetherGame=false&joinAttemptId={uuid}&joinAttemptOrigin=PlayButton";
             }else

@@ -24,10 +24,10 @@ namespace MRI
         // --------------- //
         public readonly string RobloxPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Roblox");
         public bool LastTaskIsRoblox = false; // 2nd log is the real one
-        public FileInfo Last;
-        public Mutex RobloxLock;
-        public Mutex OtherRobloxLock;
-        public FileStream RobloxCookieLock;
+        public FileInfo? Last;
+        public Mutex? RobloxLock;
+        public Mutex? OtherRobloxLock;
+        public FileStream? RobloxCookieLock;
         public readonly string WindowsUser = Environment.UserDomainName + "\\" + Environment.UserName;
 
         // ----------------------- //
@@ -40,13 +40,13 @@ namespace MRI
         }
 
         // to simplify
-        public FileInfo MostRecentRobloxLogFile()
+        public FileInfo? MostRecentRobloxLogFile()
         {
             DirectoryInfo Directory = new DirectoryInfo(System.IO.Path.Combine(RobloxPath, "logs"));
             FileInfo[] FileInf = Directory.GetFiles();
 
             // Find the most recently edited file
-            FileInfo MostRecent = FileInf.OrderByDescending(file => file.LastWriteTime).FirstOrDefault();
+            FileInfo? MostRecent = FileInf.OrderByDescending(file => file.LastWriteTime).FirstOrDefault();
 
             if (MostRecent != null)
             {
@@ -85,7 +85,7 @@ namespace MRI
             );
         }
 
-        public Dictionary<string, string> GetRobloxDetails(string[] Lines)
+        public Dictionary<string, string>? GetRobloxDetails(string[] Lines)
         {
             foreach (string line in Lines)
             {
@@ -172,10 +172,10 @@ namespace MRI
 
                     Console.WriteLine(Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value));
 
-                    Task.Run(() =>
+                    Task.Run(async () =>
                     {
                         // is this correct?
-                        CheckMonitorLog(Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value));
+                        await CheckMonitorLog(Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value));
                     });
                 }
                 else
@@ -364,7 +364,7 @@ namespace MRI
                 catch { }
             });
         }
-        public string cookies_path { get; set; }
+        public string? cookies_path { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -540,7 +540,7 @@ namespace MRI
 
             foreach (var cookie in cookies_list)
             {
-                await Authentification.LaunchWithCookie(cookie, PlaceIDInput.Text, FriendIDInput.Text);
+                await Authentication.LaunchWithCookie(cookie, PlaceIDInput.Text, FriendIDInput.Text);
             }
         }
         private void LaunchALLButton_Click(object sender, RoutedEventArgs e)

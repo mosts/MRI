@@ -111,9 +111,9 @@ namespace MRI.praesidia
             GetWindowText(hwnd, title_builder, title_builder.Capacity);
             string title = title_builder.ToString();
 
-            var data = (EnumData)GCHandle.FromIntPtr(lParam).Target;
+            var data = (EnumData?)GCHandle.FromIntPtr(lParam).Target;
 
-            if (!CaseInsensitiveFind(title, data.PartialName))
+            if (data == null || !CaseInsensitiveFind(title, data.PartialName))
                 return true;
 
             if (ShouldIgnoreWindow(title, data.IgnoreList))
@@ -125,8 +125,8 @@ namespace MRI.praesidia
         }
         class EnumData
         {
-            public string PartialName;
-            public List<string> IgnoreList;
+            public string PartialName = "";
+            public List<string> IgnoreList = new List<string>();
         }
 
         static void PatternWindowFinderAll(string partial_name, List<string> ignore_list)
@@ -166,7 +166,7 @@ namespace MRI.praesidia
                 var process = Process.GetProcessById((int)processId);
 
                 // Return the executable file name
-                return System.IO.Path.GetFileName(process.MainModule.FileName);
+                return System.IO.Path.GetFileName(process.MainModule?.FileName) ?? "[Unknown]";
             }
             catch (Exception ex)
             {
@@ -209,9 +209,9 @@ namespace MRI.praesidia
         {
             SetForegroundWindow(hwnd);
             await Task.Delay(10);
-            PressButton(VK_SPACE);
-            PressButton(VK_SPACE);
-            PressButton(VK_SPACE);
+            await PressButton(VK_SPACE);
+            await PressButton(VK_SPACE);
+            await PressButton(VK_SPACE);
         }
         public static async Task AntiAFKLoop(MainWindow window)
         {

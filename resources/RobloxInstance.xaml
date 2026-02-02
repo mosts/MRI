@@ -36,7 +36,7 @@
         <Label x:Name="DisplayName" Content="Display Name" HorizontalAlignment="Left" Margin="79,2,0,0" VerticalAlignment="Top" Width="207" Foreground="#FFE8E8E8" FontFamily="Calibri" FontSize="22" Height="33"/>
         <Label x:Name="FullUsername" Content="Full Username" HorizontalAlignment="Left" Margin="79,25,0,0" VerticalAlignment="Top" Width="207" Foreground="#FF8F8F8F" FontFamily="Calibri Light" FontSize="16" Height="32"/>
         <Label x:Name="GameName" Content="Game Title" HorizontalAlignment="Left" Margin="79,44,0,0" VerticalAlignment="Top" Width="279" Foreground="#FF595959" FontFamily="Calibri Light" Height="26"/>
-        <Button x:Name="KillInstance" Content="Kill Instance" Margin="84,66,182,6" Background="#4C000000" Foreground="#FFFAFAFA" Template ="{DynamicResource NoHighlightBut}" BorderBrush="#19A5A5A5" RenderTransformOrigin="0.5,0.5" FontSize="11" Opacity="0.75" Click="KillInstance_Click">
+        <Button x:Name="KilInstance" Content="Kill Instance" Margin="84,66,182,6" Background="#4C000000" Foreground="#FFFAFAFA" Template ="{DynamicResource NoHighlightBut}" BorderBrush="#19A5A5A5" RenderTransformOrigin="0.5,0.5" FontSize="11" Opacity="0.75" Click="KillInstance_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Style.Triggers>
