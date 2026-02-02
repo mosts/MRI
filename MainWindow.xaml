@@ -202,7 +202,6 @@
                         </LinearGradientBrush>
                     </Rectangle.Fill>
                 </Rectangle>
-                <Label Content="MRI" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontFamily="Calibri" FontSize="24" FontWeight="Bold" Margin="15,0,0,0" Opacity="0.9"/>
                 <Label x:Name="Title" Content="" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" RenderTransformOrigin="0.5,0.5" Width="3" FontFamily="Calibri Light" Foreground="White" Margin="1,0,0,0" FontSize="22" Background="{x:Null}">
                     <Label.RenderTransform>
                         <TransformGroup>
@@ -216,6 +215,7 @@
                 <Button x:Name="Close" Content="X" HorizontalAlignment="Left" Margin="489,0,0,0" VerticalAlignment="Center"  Template ="{DynamicResource NoHighlightBut}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri Light" Height="30" Width="21" FontSize="20" Click="Close_Click"/>
                 <Button x:Name="Minimise" Content="—" HorizontalAlignment="Left" Margin="454,0,0,0" VerticalAlignment="Center"  Template ="{DynamicResource NoHighlightBut}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri Light" Height="30" Width="21" FontSize="20" Click="Minimise_Click"/>
                 <TextBlock x:Name="VersionText" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White" FontFamily="Calibri Light" FontSize="10" Margin="0,0,120,0" Opacity="0.7"><Run Language="fr-fr" Text="by Adam &amp; Praesidia"/></TextBlock>
+                <Image HorizontalAlignment="Left" Height="42" Margin="10,0,0,0" VerticalAlignment="Center" Width="250" Source="/MULTIPLE ROBLOX INSTANCES (420 x 72 px) (4).png"/>
             </Grid>
             <ScrollViewer x:Name="InstancesScrollView" HorizontalAlignment="Left" Height="253" VerticalAlignment="Top" Width="324" Grid.IsSharedSizeScope="True" Margin="10,42,0,0" Background="#FF131313">
                 <WrapPanel x:Name="WP1" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="522" Grid.IsSharedSizeScope="True"/>
