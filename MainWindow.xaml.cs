@@ -449,10 +449,6 @@ namespace MRI
             Fade(LaunchALLButton, 1, 0, 0);
             Fade(SelectCookies, 1, 0, 0);
             Fade(AntiAFKCheckBox, 1, 0, 0);
-            Fade(ChatLabel, 1, 0, 0);
-            Fade(ChatMessageInput, 1, 0, 0);
-            Fade(SendChatButton, 1, 0, 0);
-            Fade(AutoRepeatCheckBox, 1, 0, 0);
 
             Fade(StatusText, 1, 0, 0);
 
@@ -491,15 +487,6 @@ namespace MRI
             Move(SelectCookies, new Thickness(SelectCookies.Margin.Left, SelectCookies.Margin.Top - 30, SelectCookies.Margin.Right, SelectCookies.Margin.Bottom), SelectCookies.Margin, 0.75);
             Fade(AntiAFKCheckBox, 0, 1, 0.5);
             Move(AntiAFKCheckBox, new Thickness(AntiAFKCheckBox.Margin.Left, AntiAFKCheckBox.Margin.Top - 30, AntiAFKCheckBox.Margin.Right, AntiAFKCheckBox.Margin.Bottom), AntiAFKCheckBox.Margin, 0.75);
-            await Task.Delay(100);
-            Fade(ChatLabel, 0, 1, 0.5);
-            Move(ChatLabel, new Thickness(ChatLabel.Margin.Left, ChatLabel.Margin.Top - 30, ChatLabel.Margin.Right, ChatLabel.Margin.Bottom), ChatLabel.Margin, 0.75);
-            Fade(ChatMessageInput, 0, 1, 0.5);
-            Move(ChatMessageInput, new Thickness(ChatMessageInput.Margin.Left, ChatMessageInput.Margin.Top - 30, ChatMessageInput.Margin.Right, ChatMessageInput.Margin.Bottom), ChatMessageInput.Margin, 0.75);
-            Fade(SendChatButton, 0, 1, 0.5);
-            Move(SendChatButton, new Thickness(SendChatButton.Margin.Left, SendChatButton.Margin.Top - 30, SendChatButton.Margin.Right, SendChatButton.Margin.Bottom), SendChatButton.Margin, 0.75);
-            Fade(AutoRepeatCheckBox, 0, 1, 0.5);
-            Move(AutoRepeatCheckBox, new Thickness(AutoRepeatCheckBox.Margin.Left, AutoRepeatCheckBox.Margin.Top - 30, AutoRepeatCheckBox.Margin.Right, AutoRepeatCheckBox.Margin.Bottom), AutoRepeatCheckBox.Margin, 0.75);
 
 
 
@@ -564,38 +551,6 @@ namespace MRI
         private void AntiAFKCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             AntiAFK.AntiAFKLoop(this); 
-        }
-
-        private async void SendChatButton_Click(object sender, RoutedEventArgs e)
-        {
-            string message = ChatMessageInput.Text;
-            if (string.IsNullOrWhiteSpace(message) || message == "Type message here...")
-            {
-                MessageBox.Show("Please enter a message to send.");
-                return;
-            }
-
-            await AutoChat.SendChatToAllRoblox(message);
-            StatusText.Content = "Status: Sent message to all instances.";
-        }
-
-        private void AutoRepeatCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            string message = ChatMessageInput.Text;
-            if (string.IsNullOrWhiteSpace(message) || message == "Type message here...")
-            {
-                MessageBox.Show("Please enter a message before enabling auto-repeat.");
-                AutoRepeatCheckBox.IsChecked = false;
-                return;
-            }
-
-            Task.Run(() => AutoChat.AutoChatLoop(this, message));
-            StatusText.Content = "Status: Auto-chat enabled (every 10s).";
-        }
-
-        private void AutoRepeatCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            StatusText.Content = "Status: Auto-chat disabled.";
         }
     }
 }

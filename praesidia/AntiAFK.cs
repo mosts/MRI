@@ -79,6 +79,10 @@ namespace MRI.praesidia
         const uint KEYEVENTF_SCANCODE = 0x0008;
 
         const byte VK_SPACE = 0x20;
+        const byte VK_W = 0x57;
+        const byte VK_A = 0x41;
+        const byte VK_S = 0x53;
+        const byte VK_D = 0x44;
 
         static bool CaseInsensitiveFind(string str, string substr)
         {
@@ -208,9 +212,39 @@ namespace MRI.praesidia
         static async Task AntiAfkCall(IntPtr hwnd)
         {
             SetForegroundWindow(hwnd);
-            await Task.Delay(10);
+            await Task.Delay(100);
+            
+            // Jump a few times
             await PressButton(VK_SPACE);
+            await Task.Delay(200);
             await PressButton(VK_SPACE);
+            await Task.Delay(200);
+            
+            // Move forward
+            keybd_event(VK_W, 0, 0, UIntPtr.Zero);
+            await Task.Delay(500);
+            keybd_event(VK_W, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            await Task.Delay(100);
+            
+            // Move backward
+            keybd_event(VK_S, 0, 0, UIntPtr.Zero);
+            await Task.Delay(500);
+            keybd_event(VK_S, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            await Task.Delay(100);
+            
+            // Move left
+            keybd_event(VK_A, 0, 0, UIntPtr.Zero);
+            await Task.Delay(300);
+            keybd_event(VK_A, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            await Task.Delay(100);
+            
+            // Move right
+            keybd_event(VK_D, 0, 0, UIntPtr.Zero);
+            await Task.Delay(300);
+            keybd_event(VK_D, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            await Task.Delay(100);
+            
+            // Final jump
             await PressButton(VK_SPACE);
         }
         public static async Task AntiAFKLoop(MainWindow window)
