@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MRI"
         mc:Ignorable="d"
-        Title="MRI" Height="322" Width="524" WindowStyle="None" Background="{x:Null}" ResizeMode="NoResize" MouseDown="Window_MouseDown" Foreground="{x:Null}">
+        Title="MRI" Height="322" Width="524" MinHeight="322" MinWidth="524" WindowStyle="None" Background="{x:Null}" ResizeMode="CanResize" MouseDown="Window_MouseDown" Foreground="{x:Null}">
 
     <!-- Resources copied from MainDab -->
 
