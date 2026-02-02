@@ -15,8 +15,81 @@ namespace MRI.praesidia
 {
     class Authentication
     {
+        public static async Task<string?> LoginWithCredentials(string username, string password)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                
+                // Step 1: Get CSRF token
+                var csrfRequest = new HttpRequestMessage(HttpMethod.Post, "https://auth.roblox.com/v2/login");
+                var csrfResponse = await client.SendAsync(csrfRequest);
+                
+                string? csrf_token = null;
+                if (csrfResponse.Headers.TryGetValues("x-csrf-token", out var values))
+                {
+                    csrf_token = string.Join(", ", values);
+                }
+                else
+                {
+                    return null;
+                }
 
-        public static async Task LaunchWithCookie(string account_token, string place_id, string friend_id = "")
+                // Step 2: Login
+                var loginData = new
+                {
+                    ctype = "Username",
+                    cvalue = username,
+                    password = password
+                };
+
+                var loginRequest = new HttpRequestMessage(HttpMethod.Post, "https://auth.roblox.com/v2/login");
+                loginRequest.Headers.Add("X-CSRF-TOKEN", csrf_token);
+                loginRequest.Content = new StringContent(
+                    Newtonsoft.Json.JsonConvert.SerializeObject(loginData),
+                    Encoding.UTF8,
+                    "application/json"
+                );
+
+                var loginResponse = await client.SendAsync(loginRequest);
+
+                if (loginResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    // Extract cookie
+                    if (loginResponse.Headers.TryGetValues("Set-Cookie", out var cookies))
+                    {
+                        foreach (var cookie in cookies)
+                        {
+                            if (cookie.Contains(".ROBLOSECURITY"))
+                            {
+                                var cookieValue = cookie.Split(';')[0].Replace(".ROBLOSECURITY=", "");
+                                return cookieValue;
+                            }
+                        }
+                    }
+                }
+
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static async Task LaunchWithCredentials(string username, string password, string place_id, string friend_id = "", string job_id = "")
+        {
+            string? cookie = await LoginWithCredentials(username, password);
+            if (cookie == null)
+            {
+                MessageBox.Show($"Failed to login with account: {username}");
+                return;
+            }
+
+            await LaunchWithCookie(cookie, place_id, friend_id, job_id);
+        }
+
+        public static async Task LaunchWithCookie(string account_token, string place_id, string friend_id = "", string job_id = "")
         {
             CookieContainer cookieContainer = new CookieContainer();
             HttpClientHandler handler = new HttpClientHandler()
@@ -79,9 +152,15 @@ namespace MRI.praesidia
             string uuid = random_uuid.ToString();
 
             string? url = null;
-            if (friend_id == "" || friend_id == "...") {
+            if (!string.IsNullOrEmpty(job_id) && job_id != "...")
+            {
+                url = $"https://www.roblox.com/Game/PlaceLauncher.ashx?request=RequestGameJob&browserTrackerId=0&placeId={place_id}&gameId={job_id}&joinAttemptId={uuid}&joinAttemptOrigin=PlayButton";
+            }
+            else if (friend_id == "" || friend_id == "...")
+            {
                 url = $"https://www.roblox.com/Game/PlaceLauncher.ashx?request=RequestGame&browserTrackerId=0&placeId={place_id}&isPlayTogetherGame=false&joinAttemptId={uuid}&joinAttemptOrigin=PlayButton";
-            }else
+            }
+            else
             {
                 url = $"https://www.roblox.com/Game/PlaceLauncher.ashx?request=RequestFollowUser&browserTrackerId=0&userId={friend_id}&joinAttemptId={uuid}&joinAttemptOrigin=JoinUser";
             }

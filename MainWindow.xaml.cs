@@ -364,7 +364,7 @@ namespace MRI
                 catch { }
             });
         }
-        public string? cookies_path { get; set; }
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -435,7 +435,6 @@ namespace MRI
             // make all components transparent at first
             Fade(MW, 1, 0, 0);
             Fade(Title, 1, 0, 0);
-            Fade(VersionBorder, 1, 0, 0);
             Fade(VersionText, 1, 0, 0);
             Fade(Minimise, 1, 0, 0);
             Fade(Close, 1, 0, 0);
@@ -443,11 +442,14 @@ namespace MRI
             Fade(PlaceIDLabel, 1, 0, 0);
             Fade(PlaceIDInput, 1, 0, 0);
             Fade(PlaceIDHint, 1, 0, 0);
+            Fade(JobIDLabel, 1, 0, 0);
+            Fade(JobIDInput, 1, 0, 0);
+            Fade(JobIDHint, 1, 0, 0);
             Fade(FriendIDLabel, 1, 0, 0);
             Fade(FriendIDInput, 1, 0, 0);
             Fade(FriendIDHint, 1, 0, 0);
             Fade(LaunchALLButton, 1, 0, 0);
-            Fade(SelectCookies, 1, 0, 0);
+            Fade(AccountManagerBtn, 1, 0, 0);
             Fade(AntiAFKCheckBox, 1, 0, 0);
 
             Fade(StatusText, 1, 0, 0);
@@ -458,8 +460,6 @@ namespace MRI
             Fade(Title, 0, 1, 0.5);
             Move(Title, new Thickness(Title.Margin.Left, Title.Margin.Top - 30, Title.Margin.Right, Title.Margin.Bottom), Title.Margin, 0.75);
             await Task.Delay(100);
-            Fade(VersionBorder, 0, 1, 0.5);
-            Move(VersionBorder, new Thickness(VersionBorder.Margin.Left, VersionBorder.Margin.Top - 30, VersionBorder.Margin.Right, VersionBorder.Margin.Bottom), VersionBorder.Margin, 0.75);
             Fade(VersionText, 0, 1, 0.5);
             Move(VersionText, new Thickness(VersionText.Margin.Left, VersionText.Margin.Top - 30, VersionText.Margin.Right, VersionText.Margin.Bottom), VersionText.Margin, 0.75);
             await Task.Delay(100);
@@ -475,6 +475,12 @@ namespace MRI
             Move(PlaceIDInput, new Thickness(PlaceIDInput.Margin.Left, PlaceIDInput.Margin.Top - 30, PlaceIDInput.Margin.Right, PlaceIDInput.Margin.Bottom), PlaceIDInput.Margin, 0.75);
             Fade(PlaceIDHint, 0, 1, 0.5);
             Move(PlaceIDHint, new Thickness(PlaceIDHint.Margin.Left, PlaceIDHint.Margin.Top - 30, PlaceIDHint.Margin.Right, PlaceIDHint.Margin.Bottom), PlaceIDHint.Margin, 0.75);
+            Fade(JobIDLabel, 0, 1, 0.5);
+            Move(JobIDLabel, new Thickness(JobIDLabel.Margin.Left, JobIDLabel.Margin.Top - 30, JobIDLabel.Margin.Right, JobIDLabel.Margin.Bottom), JobIDLabel.Margin, 0.75);
+            Fade(JobIDInput, 0, 1, 0.5);
+            Move(JobIDInput, new Thickness(JobIDInput.Margin.Left, JobIDInput.Margin.Top - 30, JobIDInput.Margin.Right, JobIDInput.Margin.Bottom), JobIDInput.Margin, 0.75);
+            Fade(JobIDHint, 0, 1, 0.5);
+            Move(JobIDHint, new Thickness(JobIDHint.Margin.Left, JobIDHint.Margin.Top - 30, JobIDHint.Margin.Right, JobIDHint.Margin.Bottom), JobIDHint.Margin, 0.75);
             Fade(FriendIDLabel, 0, 1, 0.5);
             Move(FriendIDLabel, new Thickness(FriendIDLabel.Margin.Left, FriendIDLabel.Margin.Top - 30, FriendIDLabel.Margin.Right, FriendIDLabel.Margin.Bottom), FriendIDLabel.Margin, 0.75);
             Fade(FriendIDInput, 0, 1, 0.5);
@@ -483,8 +489,8 @@ namespace MRI
             Move(FriendIDHint, new Thickness(FriendIDHint.Margin.Left, FriendIDHint.Margin.Top - 30, FriendIDHint.Margin.Right, FriendIDHint.Margin.Bottom), FriendIDHint.Margin, 0.75);
             Fade(LaunchALLButton, 0, 1, 0.5);
             Move(LaunchALLButton, new Thickness(LaunchALLButton.Margin.Left, LaunchALLButton.Margin.Top - 30, LaunchALLButton.Margin.Right, LaunchALLButton.Margin.Bottom), LaunchALLButton.Margin, 0.75);
-            Fade(SelectCookies, 0, 1, 0.5);
-            Move(SelectCookies, new Thickness(SelectCookies.Margin.Left, SelectCookies.Margin.Top - 30, SelectCookies.Margin.Right, SelectCookies.Margin.Bottom), SelectCookies.Margin, 0.75);
+            Fade(AccountManagerBtn, 0, 1, 0.5);
+            Move(AccountManagerBtn, new Thickness(AccountManagerBtn.Margin.Left, AccountManagerBtn.Margin.Top - 30, AccountManagerBtn.Margin.Right, AccountManagerBtn.Margin.Bottom), AccountManagerBtn.Margin, 0.75);
             Fade(AntiAFKCheckBox, 0, 1, 0.5);
             Move(AntiAFKCheckBox, new Thickness(AntiAFKCheckBox.Margin.Left, AntiAFKCheckBox.Margin.Top - 30, AntiAFKCheckBox.Margin.Right, AntiAFKCheckBox.Margin.Bottom), AntiAFKCheckBox.Margin, 0.75);
 
@@ -497,52 +503,46 @@ namespace MRI
             await Task.Delay(100);
             }
 
-        private void SelectCookies_Click(object sender, RoutedEventArgs e)
+        private void AccountManagerBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                Title = "Select a file",
-                Filter = "All files (*.*)|*.*" 
-            };
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                cookies_path = openFileDialog.FileName;
-                Debug.WriteLine("Selected file: " + cookies_path);
-                if (cookies_path != null) {
-                    SelectCookies.Content = "Reselect Cookies";
-                }
-            }
+            AccountManager accountManager = new AccountManager();
+            accountManager.ShowDialog();
         }
 
         public async Task handle_launch()
         {
-            if (cookies_path == null)
+            string[] accounts = AccountManager.GetAccounts();
+            
+            if (accounts.Length == 0)
             {
-                MessageBox.Show("Please select cookies first.");
-                return;
-            }
-            if (PlaceIDInput.Text == "..." && FriendIDInput.Text == "...")
-            {
-                MessageBox.Show("Please fill in friend id or place id first.");
-                return;
-            }
-            if (PlaceIDInput.Text == "" && FriendIDInput.Text == "")
-            {
-                MessageBox.Show("Please fill in friend id or place id first.");
+                MessageBox.Show("Please add accounts in the Account Manager first.");
                 return;
             }
 
-            string[] cookies = File.ReadAllLines(cookies_path);
-
-            // If you want a List<string>:
-            var cookies_list = new List<string>(cookies);
-
-            foreach (var cookie in cookies_list)
+            if (PlaceIDInput.Text == "..." || string.IsNullOrWhiteSpace(PlaceIDInput.Text))
             {
-                await Authentication.LaunchWithCookie(cookie, PlaceIDInput.Text, FriendIDInput.Text);
+                MessageBox.Show("Please enter a Place ID.");
+                return;
             }
+
+            string jobId = JobIDInput.Text == "..." ? "" : JobIDInput.Text;
+            string friendId = FriendIDInput.Text == "..." ? "" : FriendIDInput.Text;
+
+            foreach (var account in accounts)
+            {
+                var parts = account.Split(':');
+                if (parts.Length == 2)
+                {
+                    string username = parts[0].Trim();
+                    string password = parts[1].Trim();
+                    await Authentication.LaunchWithCredentials(username, password, PlaceIDInput.Text, friendId, jobId);
+                    await Task.Delay(3000); // Wait between launches
+                }
+            }
+
+            StatusText.Content = $"Status: Launched {accounts.Length} accounts.";
         }
+
         private void LaunchALLButton_Click(object sender, RoutedEventArgs e)
         {
             handle_launch();
